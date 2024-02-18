@@ -23,8 +23,7 @@ class BaseEmbeddingExtractor(Extractor):
         self._model_context_length: int = max_context_length
 
     def extract(self, content: Content, params: EmbeddingInputParams) -> List[Content]:
-        if params.chunk_size == 0:
-            params.chunk_size = self._model_context_length
+        params.chunk_size = self._model_context_length
         splitter: Callable[[str], List[str]] = self._create_splitter(params)
         extracted_embeddings = []
         text = content.data.decode("utf-8")
